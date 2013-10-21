@@ -159,3 +159,19 @@ function[playerWon] = playRound(userHandType, dealerCard, playerAction, standSof
   playerWon = ~(handSum(userHand) > handSum(dealerHand));
 
 end
+%------------------------------------------------------------------
+%dealerPlay Function
+%dealer plays (depends on )
+function[dealerHandValue] = dealerPlay(dealerHand, standSoft17)
+  %dealer has an ace and has to hit on 17
+  if min(dealerHand) == 1 && ~standSoft17
+    dealerStopsOn = 18;
+  %dealer does not have an ace or does but has to stand on 17
+  else
+    dealerStopsOn = 17;
+  end  
+  while(handSum(dealerHand) < dealerStopOn)
+    dealerHand(1, end + 1) = dealCard();
+  end
+  dealerHandValue = handSum(dealerHand);
+end
