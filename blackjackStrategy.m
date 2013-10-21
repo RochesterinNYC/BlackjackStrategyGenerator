@@ -8,3 +8,30 @@ function[] = setDeck(numDecks)
   decks(:, :) = 4;
   decks(10, :) = 16;
 end
+%------------------------------------------------------------------
+%dealCard Function
+%Deals a card that can be specified as by random, random non ace or of a specific value of random suit
+%No input arguments is deal random card
+%One input argument is nonAce indication (varagin{1} is whether a non ace card is to be randomly dealt)
+%Two input arguments is dealing a specific value card of a random suit with varagin{2} indicating the value
+function[cardValue] = dealCard(varagin)
+  validCardPicked = 0;
+  while ~validCardPicked
+    suit = floor(rand(1)* 4) + 1;
+    %seeking to specific value card
+    if length(varagin) == 2
+      cardValue = varagin{2};
+    %seeking to deal nonace card
+    else if length(varagin) == 1 && varagin{1}
+      cardValue = floor(rand(1)* 9) + 2;
+    %seeking to deal random card
+    else
+      cardValue = floor(rand(1)* 10) + 1;
+    end
+    if decks(cardValue, suit) ~= 0
+      validCardPicked = 1;
+    end
+  end
+  %remove card from deck since it was dealt
+  decks(cardValue, suit) = decks(cardValue, suit) - 1;
+end
