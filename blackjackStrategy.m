@@ -35,3 +35,22 @@ function[cardValue] = dealCard(varagin)
   %remove card from deck since it was dealt
   decks(cardValue, suit) = decks(cardValue, suit) - 1;
 end
+%------------------------------------------------------------------
+%createPlayerHand Function
+%Uses number value relationships between the order of the player hand types and the hand/card values desired
+function createPlayerHand[playerHand] = createPlayerHand(handType)
+  %Regular, non-soft, non-paired hand
+  playerHand = [];
+  if handType >= 1 && handType < 18
+    playerHand[1, end + 1] = deal(1);
+    playerHand[1, end + 1] = deal(1, (handType + 4) - sum(playerHand));
+  %is Soft Hand (has an ace)
+  else if handType >= 18 && handType < 26
+    playerHand[1, end + 1] = deal(0, 1);
+    playerHand[1, end + 1] = deal(1, handType - 16);
+  %is Paired Hand (pairs)
+  else if handType >= 26 && handType < 36
+    playerHand[1, end + 1] = deal(1, handType - 25);
+    playerHand[1, end + 1] = deal(1, handType - 25);
+  end
+end
